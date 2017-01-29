@@ -1,0 +1,87 @@
+<% include ../header %>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">Guests</h3>
+                <a class="btn btn-primary pull-right" href="/admin/logout">Logout</a>
+            </div>
+            <div class="panel-body">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Create New Guest</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" method="POST" action="/admin/guests/create">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="Guest Name" name="name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Surname</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="Guest Surname" name="surname">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" placeholder="Email" name="email">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-10 col-sm-offset-2">
+                                    <div class="input-group pull-right">
+                                        <input type="submit" value="Create" class="btn btn-primary">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">All Guests</div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Surname</th>
+                                <th>Email</th>
+                                <th>Arrival Date</th>
+                                <th>Departure Date</th>
+                                <th>Housing Budget</th>
+                                <th>Spending Budget</th>
+                                <th>Hotel</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% guests.forEach(function(guest) { %>
+                            <tr>
+                                <td><%= guest.name %></td>
+                                <td><%= guest.surname %></td>
+                                <td><%= guest.email %></td>
+                                <td><%= guest.invitation && guest.invitation.arrival_date %></td>
+                                <td><%= guest.invitation && guest.invitation.departure_date %></td>
+                                <td><%= guest.invitation && guest.invitation.housing_budget %></td>
+                                <td><%= guest.invitation && guest.invitation.spending_budget %></td>
+                                <td><%= guest.invitation && guest.invitation.hotel_id %></td>
+                                <td>
+                                    <a href="/invite/<%=guest._id%>" class="btn btn-primary">Invite</a>
+                                    <a href="/admin/guest/<%=guest._id%>/delete" class="btn btn-danger" style="margin-top:5px">Delete</a>
+                                </td>
+                            </tr>
+                            <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% include ../footer %>
